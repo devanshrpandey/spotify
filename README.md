@@ -10,3 +10,4 @@ python3 main.py
 
 You may have to install packages; "pip install spotipy" should be the only relevant one.
 
+(Code will be improved as I learn how to make it better!)
