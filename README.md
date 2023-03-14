@@ -10,4 +10,4 @@ python3 main.py
 
 You may have to install packages; "pip install spotipy" should be the only relevant one.
 
-(Code will be improved as I learn how to make it better!)
+(Code will be improved as I learn how to make it less slow!) There are some fundamental limitations with the Spotify API, but I should be able to reduce calls by 2-3x.
