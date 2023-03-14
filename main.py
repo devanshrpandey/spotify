@@ -7,7 +7,7 @@ from spotipy.oauth2 import SpotifyOAuth
 #EDIT THE FOLLOWING
 typeOfScore = "danceability" #can be replaces with energy, speechiness, acousticness, instrumentalness, liveness, valence, tempo
 maximum = True #TRUE for maximum danceability / energy etc, FALSE for minimum
-numberOfSongs = 100
+numberOfSongs = 60
 playlistName = "dance 'till we die"
 #
 #
@@ -36,7 +36,10 @@ for playlist in allPlaylists:
     ids = []
 
     for item in plTracks["items"]:
-        ids.append(item["track"]["id"])
+        try:
+            ids.append(item["track"]["id"])
+        except:
+            continue
     
     features = sp.audio_features(ids) #looping it is how you get around the 100-track limit for sp. audio_features, but it does call the api once per playlist :/
     for i in range(len(ids)):
