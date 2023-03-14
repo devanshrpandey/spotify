@@ -55,7 +55,6 @@ keys = list(scoreIDs.keys())
 keys.sort(reverse=maximum)
 newScoreIDs = {i: scoreIDs[i] for i in keys}
 
-print(newScoreIDs)
 
 
 
@@ -71,7 +70,6 @@ myID = sp.me()["id"]
 
 newPlaylist = (sp.user_playlist_create(myID,playlistName))["id"] # creates a new playlist and gets the id
 
-print(finalTracks)
 
 sp.playlist_add_items(newPlaylist, finalTracks)
 
