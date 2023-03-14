@@ -7,7 +7,7 @@ from spotipy.oauth2 import SpotifyOAuth
 #EDIT THE FOLLOWING
 typeOfScore = "danceability" #can be replaces with danceability, energy, speechiness, acousticness, instrumentalness, liveness, valence, tempo
 maximum = True #TRUE for maximum danceability / energy etc, FALSE for minimum
-numberOfSongs = 50
+numberOfSongs = 75
 playlistName = "dance 'till we die"
 #  
 #
@@ -21,7 +21,7 @@ os.environ["SPOTIPY_REDIRECT_URI"] = "http://localhost:9090"
 scope = "user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-read-playback-position user-top-read user-read-recently-played user-library-read user-library-modify"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
-"""pls = sp.current_user_playlists()["items"] #get the last 50 playlists
+pls = sp.current_user_playlists()["items"] #get the last 50 playlists
 allPlaylists = []
 for pl in pls: 
     allPlaylists.append(pl["id"]) #create an array of all playlist ids
@@ -69,12 +69,4 @@ for score in newScoreIDs:
 myID = sp.me()["id"]
 
 newPlaylist = (sp.user_playlist_create(myID,playlistName))["id"] # creates a new playlist and gets the id
-sp.playlist_add_items(newPlaylist, finalTracks)"""
-
-
-print(sp.audio_features("https://open.spotify.com/track/16su7DgyCM31XdlBn6LMvb?si=09aaeb3070374ae2"))
-
-plTracks = sp.user_playlist_tracks(playlist_id="https://open.spotify.com/playlist/1BSZYATxiGcCjkqgcdEbYN?si=78ccf6d886c84ae9") 
-
-for item in plTracks["items"]:
-    print(sp.audio_features(item["track"]["id"])[0]["danceability"])
+sp.playlist_add_items(newPlaylist, finalTracks)
