@@ -10,4 +10,5 @@ python3 main.py
 
 You may have to install packages; "pip install spotipy" should be the only relevant one.
 
-(Code will be improved as I learn how to make it less slow!) There are some fundamental limitations with the Spotify API, but I should be able to reduce calls by 2-3x.
+### How does it work?
+Essentially, the tool searches through the last N playlists added to Your Library (*including* any playlists you've added or saved, even if they're made by other people.) It then ranks all of these songs by some metric - like danceability, or energy, or acousticness, and creates a playlist with the top N songs along this category.
