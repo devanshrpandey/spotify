@@ -1,34 +1,9 @@
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-import os
 import random
+from spotipy_scripts import oauth,playlists
 
-os.environ["SPOTIPY_CLIENT_ID"] = "375c8e4a9f8d4243996d256ff41daa62"
-os.environ["SPOTIPY_CLIENT_SECRET"] = "1472274bf789453bbd1ed42c9ee181da"
-os.environ["SPOTIPY_REDIRECT_URI"] = "http://localhost:9090"
-scope = "user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-read-playback-position user-top-read user-read-recently-played user-library-read user-library-modify"
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+sp = oauth.authenticate()
 myID = sp.me()["id"]
 
-def getsongIDs(numberOfPLstoSearch=50,user=myID):
-    if numberOfPLstoSearch > 50:
-        numberOfPLstoSearch = 50
-        print("Number of playlists searched has been capped at 50 as that is the maximum the Spotify API allows.")
-    pls = sp.user_playlists(user,limit=numberOfPLstoSearch)["items"]
-    allPlaylists = []
-    for pl in pls: 
-        allPlaylists.append(pl["id"]) #create an array of all playlist ids
-
-    songIDs = []
-    for playlist in allPlaylists: 
-        plTracks = sp.user_playlist_tracks(playlist_id=playlist) 
-        for item in plTracks["items"]:
-            try:
-                songIDs.append(item["track"]["id"])
-            except:
-                continue
-    random.shuffle(songIDs)
-    return songIDs
 
 def split_list(old_list):
         new_list = []
@@ -62,7 +37,9 @@ def create_playlist(tracks,playlist_name):
     sp.playlist_add_items(new_playlist["id"], tracks)
     return new_playlist
 
-ids = getsongIDs()
-recs = generate_and_filter_recs(ids,number_of_songs=25,min_danceability=0.8,target_energy=1)
+ids = playlists.get_all_user_tracks(sp,myID)
+recs = generate_and_filter_recs(ids,number_of_songs=50,min_danceability=0.8,target_energy=1)
+sp.playlist_add_items("5LUbuD9sYHdR5TspHLObu3", recs)
 
-create_playlist(recs,"this is a name")
+
+# create_playlist(recs,"this is a name")

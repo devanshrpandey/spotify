@@ -1,0 +1,5 @@
+.cache
+
+.DS_Store
+__pycache__
+spotipy_scripts/__pycache__
