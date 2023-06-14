@@ -1,5 +1,8 @@
 import random
 import asyncio
+import oauth
+sp = oauth.authenticate()
+myID = sp.me()["id"]
 
 
 async def get_playlist_track_ids_async(sp, playlist_id):
@@ -53,7 +56,7 @@ def get_all_user_track_ids(sp,user_id,limit=None):
     return asyncio.run(get_all_user_track_ids_async(sp,user_id,limit=limit))
 
 
-def create_new_playlist(sp,user_id,ids,name,public,description,shuffle):
+def create_new_playlist(sp,ids,name,public,description,shuffle):
     """
     Creates a new playlist and adds tracks to it given a list of ids.
     parameters:
@@ -64,6 +67,21 @@ def create_new_playlist(sp,user_id,ids,name,public,description,shuffle):
         description: string, description of new playlist
         shuffle: boolean, whether or not to shuffle the playlist before writing
     """
-    newPlaylist = sp.user_playlist_create(user_id, name)  # creates a new playlist
+    if shuffle:
+        random.shuffle(ids)
+    newPlaylist = sp.user_playlist_create(sp.current_user()["id"], name,public=public,description=description)  # creates a new playlist
     sp.playlist_add_items(newPlaylist["id"], ids)
     return newPlaylist
+
+def shuffle_playlist(sp,playlist_id):
+    """
+    Shuffles a playlist given its ID.
+    parameters:
+        sp: spotipy object
+        playlist_id: string, can be URL, URI, or the ID of any playlist
+    """
+    tracks = get_playlist_track_ids(sp,playlist_id)
+    random.shuffle(tracks)
+    sp.user_playlist_replace_tracks(sp.current_user()["id"],playlist_id,tracks)
+    return tracks
+

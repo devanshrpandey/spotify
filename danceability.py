@@ -79,7 +79,7 @@ def main(
 
     avg_score = round(sum(score_list) / len(score_list),3)
 
-    new_playlist = playlists.create_new_playlist(sp, user, ids=final_tracks,name=playlist_name,public=public,description=description,shuffle=shuffle)
+    new_playlist = playlists.create_new_playlist(sp, ids=final_tracks,name=playlist_name,public=public,description=description,shuffle=shuffle)
 
 
     return characteristic, avg_score, new_playlist

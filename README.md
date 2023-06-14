@@ -21,7 +21,7 @@ You'll get a list of flags that you can use to customize and modify the playlist
 The danceability tool searches through the last N playlists added to Your Library (*including* any playlists you've added or saved, even if they're made by other people.) It then ranks all of these songs by some metric - like danceability, or energy, or acousticness, and creates a playlist with the top N songs along this category.
 
 
-## spotify-exploration
+# spotify-exploration
 
 **THE EXPLORATION CODE IS CURRENTLY UNDER CONSTRUCTION AND IS NOT YET READY FOR USE**
 
