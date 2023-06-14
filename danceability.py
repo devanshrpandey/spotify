@@ -2,8 +2,9 @@ import random
 from spotipy_scripts import oauth, playlists
 import string
 import argparse
+import os
 
-sp = oauth.authenticate()
+sp = oauth.authenticate() # pass id=<CLIENT_ID> and
 myID = sp.me()["id"]
 
 parser = argparse.ArgumentParser()

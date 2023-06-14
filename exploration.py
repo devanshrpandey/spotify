@@ -1,6 +1,7 @@
 import random
 from spotipy_scripts import oauth,playlists
 
+exit()
 sp = oauth.authenticate()
 myID = sp.me()["id"]
 
